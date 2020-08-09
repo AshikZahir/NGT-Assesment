@@ -1,0 +1,262 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table employee(
+    -> empno varchar(20) primary key,
+    -> name varchar(20) not null,
+    -> deptno varcahr(20) not null)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcahr(20) not null)' at line 4
+mysql> create table employee(
+    -> empno varchar(20) primary key,
+    -> name varchar(20) not null,
+    -> deptno varchar(20) not null);
+ERROR 1046 (3D000): No database selected
+mysql> select * from employee
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> create table employee(
+    -> empno varchar(20) primary key,
+    -> name varchar(20) not null,
+    -> deptno varchar(20) not null)
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> create database training
+    -> ;
+Query OK, 1 row affected (0.22 sec)
+
+mysql> create table employee(
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> use training;
+Database changed
+mysql> create table employee(
+    -> empno varchar(20) primary key,
+    -> name varchar(20) not null,
+    -> deptno varchar(20) not null);
+Query OK, 0 rows affected (2.13 sec)
+
+mysql> select * from employee;
+Empty set (0.08 sec)
+
+mysql> "insert into employee(empno,name,deptno) values ('E1','Sandy','D1')";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"insert into employee(empno,name,deptno) values ('E1','Sandy','D1')"' at line 1
+mysql> insert into employee(empno,name,deptno) values ('E1','Sandy','D1');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into employee(empno,name,deptno) values ('E2','Jo','D2');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from employee;
++-------+-------+--------+
+| empno | name  | deptno |
++-------+-------+--------+
+| E1    | Sandy | D1     |
+| E2    | Jo    | D2     |
++-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employee(empno,name,deptno) values ('E3','Fred','D2');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee(empno,name,deptno) values ('E4','Ginger','D1');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee(empno,name,deptno) values ('E5','Mog','D1');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++-------+--------+--------+
+| empno | name   | deptno |
++-------+--------+--------+
+| E1    | Sandy  | D1     |
+| E2    | Jo     | D2     |
+| E3    | Fred   | D2     |
+| E4    | Ginger | D1     |
+| E5    | Mog    | D1     |
++-------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee add column roomno varchar(20);
+Query OK, 0 rows affected (1.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+--------+--------+
+| empno | name   | deptno | roomno |
++-------+--------+--------+--------+
+| E1    | Sandy  | D1     | NULL   |
+| E2    | Jo     | D2     | NULL   |
+| E3    | Fred   | D2     | NULL   |
+| E4    | Ginger | D1     | NULL   |
+| E5    | Mog    | D1     | NULL   |
++-------+--------+--------+--------+
+5 rows in set (0.07 sec)
+
+mysql> update employee set roomno ='R1' where deptno = 'D2';
+Query OK, 2 rows affected (0.14 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+--------+--------+
+| empno | name   | deptno | roomno |
++-------+--------+--------+--------+
+| E1    | Sandy  | D1     | NULL   |
+| E2    | Jo     | D2     | R1     |
+| E3    | Fred   | D2     | R1     |
+| E4    | Ginger | D1     | NULL   |
+| E5    | Mog    | D1     | NULL   |
++-------+--------+--------+--------+
+5 rows in set (0.05 sec)
+
+mysql> insert into employee(empno,name,deptno,roomno) values ('E6','Ashik','D1','R2');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee(empno,name,deptno,roomno) values ('E7','Sugu','D2','R3');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into employee(empno,name,deptno,roomno) values ('E8','Sri','D3','R4');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++-------+--------+--------+--------+
+| empno | name   | deptno | roomno |
++-------+--------+--------+--------+
+| E1    | Sandy  | D1     | NULL   |
+| E2    | Jo     | D2     | R1     |
+| E3    | Fred   | D2     | R1     |
+| E4    | Ginger | D1     | NULL   |
+| E5    | Mog    | D1     | NULL   |
+| E6    | Ashik  | D1     | R2     |
+| E7    | Sugu   | D2     | R3     |
+| E8    | Sri    | D3     | R4     |
++-------+--------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> update employee set name ='Fido' where name = 'Mog';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+--------+--------+
+| empno | name   | deptno | roomno |
++-------+--------+--------+--------+
+| E1    | Sandy  | D1     | NULL   |
+| E2    | Jo     | D2     | R1     |
+| E3    | Fred   | D2     | R1     |
+| E4    | Ginger | D1     | NULL   |
+| E5    | Fido   | D1     | NULL   |
+| E6    | Ashik  | D1     | R2     |
+| E7    | Sugu   | D2     | R3     |
+| E8    | Sri    | D3     | R4     |
++-------+--------+--------+--------+
+8 rows in set (0.06 sec)
+
+mysql> alter table employee drop column "name";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"name"' at line 1
+mysql> alter table employee drop column 'name';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''name'' at line 1
+mysql> alter table employee drop 'name';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''name'' at line 1
+mysql> alter table employee drop name;
+Query OK, 0 rows affected (1.90 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+--------+--------+
+| empno | deptno | roomno |
++-------+--------+--------+
+| E1    | D1     | NULL   |
+| E2    | D2     | R1     |
+| E3    | D2     | R1     |
+| E4    | D1     | NULL   |
+| E5    | D1     | NULL   |
+| E6    | D1     | R2     |
+| E7    | D2     | R3     |
+| E8    | D3     | R4     |
++-------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> update employee drop deptno='D2';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop deptno='D2'' at line 1
+mysql> update employee drop deptno where deptno='D2';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop deptno where deptno='D2'' at line 1
+mysql> delete from employee where deptno ='D2';
+Query OK, 3 rows affected (0.18 sec)
+
+mysql> select * from employee;
++-------+--------+--------+
+| empno | deptno | roomno |
++-------+--------+--------+
+| E1    | D1     | NULL   |
+| E4    | D1     | NULL   |
+| E5    | D1     | NULL   |
+| E6    | D1     | R2     |
+| E8    | D3     | R4     |
++-------+--------+--------+
+5 rows in set (0.05 sec)
+
+mysql>
+
+Exercise 1:
+
+1. select title,book_num from book_file where year>='1984';
+2. select * from book_file where year<'1984' or year>'1986';
+3. select * from publisher orderby pubname desc;
+4. select * from book_file where year between '1985' and '1987';
+5. select count(book_num) from book_file;
+6. select max(edition) from book_file;
+7. select book_num,topic,title from book_file where topic like 'data%';
+8. select pubname,pub_code,pubaddress from publisher where pubname like'A%' and pubcode < 'p5';
+9. select distinct topic from book_file;
+
+Exercise 3:
+
+1. select branchname from branch,area where branch.area_code=area.area_code and manager='Bloggs';
+2. select average(product_price) from products;
+3. select max(product_price) from products;
+4. select town from area a, branch b, product p, stock s where 
+   a.area_code=b.area_code and b.branch_code=s.branch_code and p.product_code =s.product_code 
+   and p.product_desc='PoshDress';
+5. select p.prod_desc, b.branchname from product p,branch b,stock s where p.product_code=s.product_code and
+   b.branch_code=s.branch_code and s.stock_quant<4;
+
+Query;
+
+1. select empnum, empfirstname, emplastname from employee;
+2. select * from computer;
+3. select mfgmodel from computer where prototye = '486DX';
+4. select tagnum from pc where empnum=124 and location='home';
+5. select compid,mfgmodel from computer where prototye='486DX';
+6. select tagnum,compid from pc where location not in ('home');
+7. select tagnum,packid from software where softcost between 201 and 499;
+8. select tagnum,packid,(softcost*0.95) as DiscountedSoftwareCost from software;
+9. select tagNum, packID, SoftCost*0.95 AS DiscountedSoftwareCost from Software where DiscountedSoftwareCost>=400;
+10. select PackID, PackName from package where PackType IN ('database','spreadsheet');
+11. select EmpNum, EmpPhone from Employee where EmplLastName='Feinstein';
+12. select * from Package ORDER BY PackName;
+13. select * from Package ORDER BY PackCost DESC;
+14. select * from Package where PackCost > 400;
+15. select AVG(PackCost) from Package where PackType='Word Processig';
+16. select packID, PackName from Package where PackCost>AVG(PackCost);
+17. select p.TagNum, c.CompID, c.MfgName from PC p,Computer c where p.CompID=c.CompID;
+18. select p.TagNum, c.CompID, c.MfgName from PC p, Computer c where p.CompID=c.CompID e.EmpNum=124;
+19. select EmpNum, EmpName form Employee where Location<>'Home';
+20. select TagNum, CompID, CompID, CompName, version, type from package;  
+20. select pc.TagNum, pc.CompID, p.PackName, p.PackVer, p.PackType from pc, Package p, Software s where pc.TagNum=s.TagNum and p.PackID=s.PackID;
+
+Thank You
+
+Regards
+Ashik Ahamed Zahir
+46007455
